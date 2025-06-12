@@ -404,3 +404,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+###################################################
+# CUSTOM
+###################################################
+
+net8_mgfxc_wine_setup.sh

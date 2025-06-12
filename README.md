@@ -20,7 +20,16 @@ Before running the script make sure you have all dependencies installed:
 $ sudo apt install wget curl p7zip-full wine64 
 ```
 
+Run the script which should create a folder `~/.<WINE_MONOGAME_PREFIX>` e.g. `~/.winemonogame`:
+```bash
+$ ./mgfxc-wine-setup.sh
+```
+
 After running the script run this command to enable effect compilation immediately without the need to logout and login or reboot:
 ```bash
 $ source ~/.profile
 ```
+
+To undo the script at any time simply delete the created folder and delete `export MGFXC_WINE_PATH="/home/<USER>/.<WINE_MONOGAME_PREFIX>" from `~/.profile` or `~/.zprofile`. 
+If it exists delete also `export PATH="$PATH:/home/<USER>/.<WINE_MONOGAME_PREFIX>"`.s
+
