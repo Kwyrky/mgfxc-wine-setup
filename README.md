@@ -33,6 +33,6 @@ $ source ~/.profile
 ```
 
 ## Undo
-To undo the script at any time simply delete the created folder and delete `export MGFXC_WINE_PATH="/home/<USER>/.<WINE_MONOGAME_PREFIX>" from `~/.profile` or `~/.zprofile`. 
+To undo the script at any time simply delete the created folder and delete `export MGFXC_WINE_PATH="/home/<USER>/.<WINE_MONOGAME_PREFIX>"` from `~/.profile` or `~/.zprofile`. 
 If it exists delete also `export PATH="$PATH:/home/<USER>/.<WINE_MONOGAME_PREFIX>"`.
 
