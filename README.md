@@ -1,6 +1,6 @@
 # mgfxc-wine-setup
 
-> ⚠️ **Disclaimer:** This script was tested on my personal system (Linux Mint 22 "Wilma" – based on Ubuntu 24.04 LTS "Noble Numbat"), but it comes with **no guarantees**. It may or may not work on your setup, and I can't ensure compatibility or correctness on any particular system.
+> ⚠️ **Disclaimer:** This script was tested on my personal system (Linux Mint 22.2 "Zara" – based on Ubuntu 24.04 LTS "Noble Numbat"), but it comes with **no guarantees**. It may or may not work on your setup, and I can't ensure compatibility or correctness on any particular system.
 
 ## Info
 This script is used to setup the needed Wine environment so that mgfxc can be run on Linux / macOS systems.
@@ -9,6 +9,7 @@ It installs / extracts
 * `.NET SDK 3.1` for `MonoGame 3.8.0`
 * `.NET SDK 6.0` for `MonoGame 3.8.1`
 * `.NET SDK 8.0` for `MonoGame 3.8.4`
+* `.NET SDK 9.0` for `MonoGame 3.8.5`
 * and `d3dcompiler_47.dll`
 to
 `~/.<WINE_MONOGAME_PREFIX>/drive_c/windows/system32/`

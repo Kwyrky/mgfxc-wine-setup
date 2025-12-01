@@ -7,6 +7,7 @@
 # .NET SDK 3.1 for MonoGame 3.8.0
 # .NET SDK 6.0 for MonoGame 3.8.1
 # .NET SDK 8.0 for MonoGame 3.8.4
+# .NET SDK 9.0 for MonoGame 3.8.5
 # and d3dcompiler_47.dll
 # to
 # ~/.winemonogame/drive_c/windows/system32/
@@ -78,10 +79,14 @@ popd
 DOTNET_URL_3_1="https://download.visualstudio.microsoft.com/download/pr/adeab8b1-1c44-41b2-b12a-156442f307e9/65ebf805366410c63edeb06e53959383/dotnet-sdk-3.1.201-win-x64.zip"
 DOTNET_URL_6_0="https://download.visualstudio.microsoft.com/download/pr/e71628cc-8b6c-498f-ae7a-c0dc60019696/aaadc51ad300f1aa58250427e5373527/dotnet-sdk-6.0.202-win-x86.zip"
 DOTNET_URL_8_0="https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.401/dotnet-sdk-8.0.401-win-x64.zip"
+DOTNET_URL_9_0="https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.104/dotnet-sdk-9.0.104-win-x64.zip"
+
 
 DOTNET_FILE_3_1=$(basename "$DOTNET_URL_3_1")
 DOTNET_FILE_6_0=$(basename "$DOTNET_URL_6_0")
 DOTNET_FILE_8_0=$(basename "$DOTNET_URL_8_0")
+DOTNET_FILE_9_0=$(basename "$DOTNET_URL_9_0")
+
 
 OUTPUT_DIR="$SCRIPT_DIR"
 
@@ -97,12 +102,22 @@ OUTPUT_DIR="$SCRIPT_DIR"
 [[ -e "$OUTPUT_DIR/$DOTNET_FILE_8_0" ]]                  || curl "$DOTNET_URL_8_0" --output "$OUTPUT_DIR/$DOTNET_FILE_8_0"
 [[ -d "$WINEPREFIX/drive_c/windows/system32/8.0.401/" ]] || 7z x "$OUTPUT_DIR/$DOTNET_FILE_8_0" -o"$WINEPREFIX/drive_c/windows/system32/" -aoa
 
+# Download and extract .NET SDK 9.0
+[[ -e "$OUTPUT_DIR/$DOTNET_FILE_9_0" ]]                  || curl "$DOTNET_URL_9_0" --output "$OUTPUT_DIR/$DOTNET_FILE_9_0"
+[[ -d "$WINEPREFIX/drive_c/windows/system32/9.0.104/" ]] || 7z x "$OUTPUT_DIR/$DOTNET_FILE_8_0" -o"$WINEPREFIX/drive_c/windows/system32/" -aoa
+
 # Download and extract d3dcompiler_47.dll
 FIREFOX_URL="https://download-installer.cdn.mozilla.net/pub/firefox/releases/62.0.3/win64/ach/Firefox%20Setup%2062.0.3.exe"
 FIREFOX_FILE=$(basename "$FIREFOX_URL")
 [[ -e "$OUTPUT_DIR/$FIREFOX_FILE" ]]                               || curl "$FIREFOX_URL" --output "$OUTPUT_DIR/$FIREFOX_FILE"
 [[ -f "$WINEPREFIX/drive_c/windows/system32/d3dcompiler_47.dll" ]] && sha256sum $WINE_MONOGAME_DIR/drive_c/windows/system32/d3dcompiler_47.dll
 [[ -f "$WINEPREFIX/drive_c/windows/system32/d3dcompiler_47.dll" ]] && 7z e "$OUTPUT_DIR/$FIREFOX_FILE" "core/d3dcompiler_47.dll" -o"$WINEPREFIX/drive_c/windows/system32/" -aoa
+
+# get fxccs
+FXCCS_URL="https://monogame.net/downloads/fxccs.zip"
+FXCCS_ZIP="$WINEPREFIX/drive_c/fxccs.zip"
+curl $FXCCS_URL --output "$FXCCS_ZIP"
+7z x "$FXCCS_ZIP" -o"$WINEPREFIX/drive_c/" -y
 
 # append MGFXC_WINE_PATH env variable
 echo -e "\nexport MGFXC_WINE_PATH=\"$HOME/.$WINE_MONOGAME_PREFIX\"" >> ~/.profile
