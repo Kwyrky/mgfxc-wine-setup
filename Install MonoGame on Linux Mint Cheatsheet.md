@@ -26,6 +26,56 @@ Use either the Official script or the Inofficial script.
 ## Install VS Code
 * Download and install `.deb` package from https://code.visualstudio.com/
 
+## Install VS Code using a script
+```sh
+#!/bin/bash
+
+set -e  # Exit on any error
+
+echo "=================================="
+echo "VS Code Installation Script"
+echo "for Linux Mint"
+echo "=================================="
+echo ""
+
+# Check if running as root
+if [ "$EUID" -eq 0 ]; then 
+   echo "Please do not run this script as root or with sudo"
+   echo "The script will ask for sudo password when needed"
+   exit 1
+fi
+
+# Update package lists
+echo "[1/5] Updating package lists..."
+sudo apt-get update
+
+# Install prerequisites
+echo "[2/5] Installing prerequisites..."
+sudo apt-get install -y wget gpg apt-transport-https
+
+# Install Microsoft GPG key
+echo "[3/5] Installing Microsoft GPG key..."
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -D -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft.gpg
+rm -f microsoft.gpg
+
+# Add VS Code repository
+echo "[4/5] Adding VS Code repository..."
+sudo bash -c 'cat > /etc/apt/sources.list.d/vscode.sources << EOF
+Types: deb
+URIs: https://packages.microsoft.com/repos/code
+Suites: stable
+Components: main
+Architectures: amd64,arm64,armhf
+Signed-By: /usr/share/keyrings/microsoft.gpg
+EOF'
+
+# Update package lists and install VS Code
+echo "[5/5] Installing Visual Studio Code..."
+sudo apt-get update
+sudo apt-get install -y code
+```
+
 ## Install VS Code extensions
 * `code --install-extension ms-dotnettools.csdevkit`
 * `code --install-extension r88.monogame`
